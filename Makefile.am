@@ -12,8 +12,12 @@ GOFLAGS = -ldflags="-s -w"
 EXTRA_mqbot_SOURCES = \
 	mqbot.go
 
-#EXTRA_mqbot_SOURCES += \
-#	server/bundle/public.go
+EXTRA_mqbot_SOURCES += \
+	config/config.go.in \
+	daemon/daemon.go \
+	transport/transport.go \
+	tools/tools.go 
+
 
 mqbot$(EXEEXT): $(mqbot_SOURCES) $(EXTRA_mqbot_SOURCES)
 	$(GO) build $(GOFLAGS) -o mqbot$(EXEEXT) $(mqbot_SOURCES)

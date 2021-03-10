@@ -292,9 +292,8 @@ SUFFIXES = .go .c
 OBJEXT = none
 mqbot_SOURCES = mqbot.go
 GOFLAGS = -ldflags="-s -w"
-EXTRA_mqbot_SOURCES = \
-	mqbot.go
-
+EXTRA_mqbot_SOURCES = mqbot.go config/config.go.in daemon/daemon.go \
+	transport/transport.go tools/tools.go
 EXTRA_DIST = \
 	README.md \
 	go.mod \
@@ -741,9 +740,6 @@ uninstall-am: uninstall-sbinPROGRAMS
 
 .PRECIOUS: Makefile
 
-
-#EXTRA_mqbot_SOURCES += \
-#	server/bundle/public.go
 
 mqbot$(EXEEXT): $(mqbot_SOURCES) $(EXTRA_mqbot_SOURCES)
 	$(GO) build $(GOFLAGS) -o mqbot$(EXEEXT) $(mqbot_SOURCES)
