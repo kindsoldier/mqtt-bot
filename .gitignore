@@ -1,0 +1,13 @@
+*~
+*.log
+*.pid
+*.geany
+autom4te.cache/
+log/
+run/
+Makefile
+config.status
+biapi
+config/config.go
+mqbot.yml
+mqbot
