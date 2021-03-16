@@ -43,8 +43,9 @@ func (this *Transport) Bind(hostname string, port int, username string, password
 	opts.SetPassword(password)
 	opts.SetClientID(clientId)
     opts.SetAutoReconnect(true)
-    opts.SetKeepAlive(keepalive * time.Second)
-    opts.SetPingTimeout(pingTimeout * time.Second)
+
+    opts.SetKeepAlive(keepalive)
+    opts.SetPingTimeout(pingTimeout)
 
     onConnectHandler := func(client mqtt.Client) {
         log.Println("connect to broker")
