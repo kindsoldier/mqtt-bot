@@ -14,14 +14,14 @@ import (
 
     //"encoding/json"
     //"errors"
-    //"log"
-    //"strconv"
+    "log"
+    "strconv"
     //"strings"
     "time"
     //"net/url"
 
     "app/config"
-    //"app/tools"
+    "app/tools"
     "app/transport"
     "app/daemon"
     
@@ -109,9 +109,13 @@ func (this *Application) Loop() error {
             this.config.Broker.Username,
             this.config.Broker.Password)
 
-	timer := time.NewTicker(1 * time.Second)
+	timer := time.NewTicker(1000 * time.Millisecond)
 	for time := range timer.C {
-      trans.Publish("time", time.String())
+            log.Println("/time", time.String())
+            trans.Publish("/time", time.String())
+            trans.Publish("/room1/current", strconv.Itoa(tools.GetRandomInt(1, 10)))
+            trans.Publish("/room1/temp", strconv.Itoa(tools.GetRandomInt(15, 25)))
+            trans.Publish("/room1/light", strconv.Itoa(tools.GetRandomInt(1000, 1500)))
 	}
     return err
 }
