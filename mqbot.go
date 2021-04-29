@@ -10,31 +10,22 @@ import (
     "fmt"
     "os"
     "path/filepath"
-    //"time"
-
-    //"encoding/json"
-    //"errors"
     "log"
     "strconv"
-    //"strings"
     "time"
-    //"net/url"
 
-    "app/config"
-    "app/tools"
+    "app/pmconfig"
+    "app/pmtools"
+    "app/pmdaemon"
     "app/transport"
-    "app/daemon"
-    
-    //mqtt "github.com/eclipse/paho.mqtt.golang"
-    //"log"
 )
 
 type Application struct {
-    config  *config.Config
+    config  *pmconfig.Config
 }
 
 func NewApplication() *Application {
-    config := config.New()
+    config := pmconfig.New()
     return &Application{
         config:     config,
     }
@@ -84,13 +75,17 @@ func (this *Application) Run() error {
 			return err
 	}
 
-    daemon := daemon.New(this.config)
-    //err = daemon.Daemonize()
-    //if err != nil {
-    //    return err
-    //}
-    //}
-    daemon.SetSignalHandler()
+    daemon := pmdaemon.NewDaemon(
+        this.config.MessageLogPath,
+        this.config.PidPath,
+        this.config.Debug,
+        this.config.Foreground)
+
+    err = daemon.Daemonize()
+    if err != nil {
+        return err
+    }
+    pmdaemon.SetSignalHandler()
     
 	// Default operation
     err = this.Loop()
@@ -111,11 +106,11 @@ func (this *Application) Loop() error {
 
 	timer := time.NewTicker(1000 * time.Millisecond)
 	for time := range timer.C {
+            trans.Publish("/room1/current", strconv.Itoa(pmtools.GetRandomInt(1, 10)))
+            trans.Publish("/room1/temp", strconv.Itoa(pmtools.GetRandomInt(15, 25)))
+            trans.Publish("/room1/light", strconv.Itoa(pmtools.GetRandomInt(1000, 1500)))
             log.Println("/time", time.String())
             trans.Publish("/time", time.String())
-            trans.Publish("/room1/current", strconv.Itoa(tools.GetRandomInt(1, 10)))
-            trans.Publish("/room1/temp", strconv.Itoa(tools.GetRandomInt(15, 25)))
-            trans.Publish("/room1/light", strconv.Itoa(tools.GetRandomInt(1000, 1500)))
 	}
     return err
 }

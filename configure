@@ -3173,7 +3173,7 @@ app_daemonize="$APP_DAEMONIZE"
 app_name="$PACKAGE"
 
 
-ac_config_files="$ac_config_files Makefile config/config.go"
+ac_config_files="$ac_config_files Makefile pmconfig/config.go"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3917,7 +3917,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "config/config.go") CONFIG_FILES="$CONFIG_FILES config/config.go" ;;
+    "pmconfig/config.go") CONFIG_FILES="$CONFIG_FILES pmconfig/config.go" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

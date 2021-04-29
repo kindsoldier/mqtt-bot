@@ -3,7 +3,7 @@
  * Author: Oleg Borodin <oleg.borodin@pixel-networks.com>
  */
 
-package config
+package pmconfig
 
 import (
     //"path/filepath"

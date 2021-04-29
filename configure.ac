@@ -347,6 +347,6 @@ dnl AC_SUBST(app_port, 8080)
 
 AC_OUTPUT([
 Makefile
-config/config.go
+pmconfig/config.go
 ])
 dnl EOF

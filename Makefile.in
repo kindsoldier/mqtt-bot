@@ -99,7 +99,7 @@ DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = config/config.go
+CONFIG_CLEAN_FILES = pmconfig/config.go
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(sbindir)"
 PROGRAMS = $(sbin_PROGRAMS)
@@ -162,7 +162,7 @@ CTAGS = ctags
 CSCOPE = cscope
 AM_RECURSIVE_TARGETS = cscope
 am__DIST_COMMON = $(srcdir)/Makefile.in \
-	$(top_srcdir)/config/config.go.in config.guess config.sub \
+	$(top_srcdir)/pmconfig/config.go.in config.guess config.sub \
 	install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
@@ -292,8 +292,8 @@ SUFFIXES = .go .c
 OBJEXT = none
 mqbot_SOURCES = mqbot.go
 GOFLAGS = -ldflags="-s -w"
-EXTRA_mqbot_SOURCES = mqbot.go config/config.go.in daemon/daemon.go \
-	transport/transport.go tools/tools.go
+EXTRA_mqbot_SOURCES = mqbot.go pmconfig/config.go.in \
+	pmdaemon/daemon.go transport/transport.go pmtools/tools.go
 EXTRA_DIST = \
 	README.md \
 	go.mod \
@@ -336,7 +336,7 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
-config/config.go: $(top_builddir)/config.status $(top_srcdir)/config/config.go.in
+pmconfig/config.go: $(top_builddir)/config.status $(top_srcdir)/pmconfig/config.go.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-sbinPROGRAMS: $(sbin_PROGRAMS)
 	@$(NORMAL_INSTALL)

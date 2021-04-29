@@ -13,10 +13,10 @@ EXTRA_mqbot_SOURCES = \
 	mqbot.go
 
 EXTRA_mqbot_SOURCES += \
-	config/config.go.in \
-	daemon/daemon.go \
+	pmconfig/config.go.in \
+	pmdaemon/daemon.go \
 	transport/transport.go \
-	tools/tools.go 
+	pmtools/tools.go 
 
 
 mqbot$(EXEEXT): $(mqbot_SOURCES) $(EXTRA_mqbot_SOURCES)
