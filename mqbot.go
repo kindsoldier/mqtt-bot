@@ -218,6 +218,11 @@ func (this *Application) Run() error {
                 } else {
                     this.room.SetCurrentOn(true)
                 }
+            case "on":
+                this.room.SetCurrentOn(true)
+            case "off":
+                this.room.SetCurrentOn(false)
+
         }
     } 
 
