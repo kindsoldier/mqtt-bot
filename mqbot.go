@@ -169,7 +169,7 @@ func (this *Application) Start() error {
 			return err
 	}
 
-    this.config.Foreground = true
+    //this.config.Foreground = true
     daemon := pmdaemon.NewDaemon(
         this.config.MessageLogPath,
         this.config.PidPath,
@@ -247,6 +247,7 @@ func (this *Application) Run() error {
 
             this.trans.Publish("/room1/state", string(this.room.Json()))
             this.trans.Publish("/time", timeX.String())
+            log.Println(timeX.String())
 	}
     return err
 }
