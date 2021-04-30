@@ -19,25 +19,25 @@ for development and verification purposes
 
 ### Command topics
 
-$ mosquitto_sub -h v7 -u gateway -P qwerty -t /room1/state  
+$ mosquitto_sub -h v7.unix7.org -u gateway -P qwerty -t /room1/state  
 
 `{"temp":197,"light":1037,"current":15,"lightOn":true,"currentOn":true}`
 
 #### Pseudo button, topic "/room1/currentOn", command: "push" 
 
-$ mosquitto_pub -h v7 -u device -P qwerty -t /room1/currentOn -m push
+$ mosquitto_pub -h v7.unix7.org -u device -P qwerty -t /room1/currentOn -m push
 
 `{"temp":161,"light":1469,"current":0,"lightOn":true,"currentOn":false}`
 
-$ mosquitto_pub -h v7 -u device -P qwerty -t /room1/currentOn -m push
+$ mosquitto_pub -h v7.unix7.org -u device -P qwerty -t /room1/currentOn -m push
 
 #### Pseudo switch, topic "/room1/lightOn", commands: "on", "off"
 
-$ mosquitto_pub -h v7 -u device -P qwerty -t /room1/lightOn -m off
+$ mosquitto_pub -h v7.unix7.org -u device -P qwerty -t /room1/lightOn -m off
 
 `{"temp":180,"light":0,"current":14,"lightOn":false,"currentOn":true}`
 
-$ mosquitto_pub -h v7 -u device -P qwerty -t /room1/lightOn -m on
+$ mosquitto_pub -h v7.unix7.org -u device -P qwerty -t /room1/lightOn -m on
 
 `{"temp":158,"light":1324,"current":13,"lightOn":true,"currentOn":true}`
 
