@@ -52,14 +52,12 @@ usage: mqbot command [option]
 
 
 * /room1/state 
+$ mosquitto_sub -h v7.unix7.org -u gateway -P qwerty -t /room1/state  
 
 `{"temp":197,"light":1037,"current":15,"lightOn":true,"currentOn":true}`
 
 ### Command topics
 
-$ mosquitto_sub -h v7.unix7.org -u gateway -P qwerty -t /room1/state  
-
-`{"temp":197,"light":1037,"current":15,"lightOn":true,"currentOn":true}`
 
 #### Pseudo button, topic "/room1/currentOn", command: "push" 
 
