@@ -12,6 +12,7 @@ import (
 	//"net/url"
 	//"os"
 	"time"
+    "strconv"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
@@ -22,6 +23,15 @@ const (
     keepalive   time.Duration   = 1 // sec
     waitTimeout time.Duration   = 3 // sec
     pingTimeout time.Duration   = 1 // sec
+)
+
+
+const (
+    QosL1       byte            = 1
+    QosL2       byte            = 2
+    QosL3       byte            = 4
+
+    //clientId    string          = "pm-xxxx"
 )
 
 type Transport struct {
@@ -41,6 +51,7 @@ func (this *Transport) Bind(hostname string, port int, username string, password
 	opts.AddBroker(uri)
 	opts.SetUsername(username)
 	opts.SetPassword(password)
+    clientId := strconv.FormatInt(time.Now().Unix(), 10)
 	opts.SetClientID(clientId)
     opts.SetAutoReconnect(true)
 
@@ -73,4 +84,23 @@ func (this *Transport) Publish(topic string, message string) {
         if this.client.IsConnected() {
             this.client.Publish(topic, 0, false, message)
         }
+}
+
+type Handler = func(subject string, message []byte)
+
+func (this *Transport) Subscribe(topic string, callback Handler) error {
+    var err error
+
+    mqttHandler := func(mqttClient mqtt.Client, mqttMessage mqtt.Message) {
+        callback(mqttMessage.Topic(), mqttMessage.Payload()) 
+    }
+
+    token := this.client.Subscribe(topic, QosL1, mqttHandler)
+    for !token.WaitTimeout(waitTimeout * time.Second) {}
+
+    err = token.Error()
+    if err != nil {
+        return err
+    }
+    return err
 }
